@@ -1,10 +1,8 @@
 package eu.mrndesign.www.matned.service;
 
 import eu.mrndesign.www.matned.dto.InventoryDTO;
-import eu.mrndesign.www.matned.dto.PersonDTO;
-import eu.mrndesign.www.matned.model.EntityDescription;
-import eu.mrndesign.www.matned.model.Inventory;
-import eu.mrndesign.www.matned.model.Person;
+import eu.mrndesign.www.matned.model.common.EntityDescription;
+import eu.mrndesign.www.matned.model.company.Inventory;
 import eu.mrndesign.www.matned.repository.InventoryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,10 +22,12 @@ public class InventoryService extends BaseService{
         this.inventoryRepository = inventoryRepository;
     }
 
+//    TODO make pageable
     public List<InventoryDTO> findAll() {
         return covertListToDTOList(inventoryRepository.findAll());
     }
 
+//    TODO make pageable
     public List<InventoryDTO> findAll(Integer startPage, Integer itemsPerPage, String[] sortBy) {
         Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
         Page<Inventory> inventories = inventoryRepository.findAll(pageable);

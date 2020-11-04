@@ -1,9 +1,9 @@
 package eu.mrndesign.www.matned.service;
 
 import eu.mrndesign.www.matned.dto.InventoryDTO;
-import eu.mrndesign.www.matned.model.EntityDescription;
-import eu.mrndesign.www.matned.model.Inventory;
-import eu.mrndesign.www.matned.model.User;
+import eu.mrndesign.www.matned.model.common.EntityDescription;
+import eu.mrndesign.www.matned.model.company.Inventory;
+import eu.mrndesign.www.matned.model.security.User;
 import eu.mrndesign.www.matned.repository.InventoryRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

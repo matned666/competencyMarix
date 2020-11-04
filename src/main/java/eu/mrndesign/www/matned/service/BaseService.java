@@ -1,8 +1,8 @@
 package eu.mrndesign.www.matned.service;
 
 import eu.mrndesign.www.matned.dto.DTOEintityDescriptionImplementation;
-import eu.mrndesign.www.matned.model.EntityDescriptionImplementation;
-import eu.mrndesign.www.matned.model.EntityDescription;
+import eu.mrndesign.www.matned.model.common.EntityDescriptionImplementation;
+import eu.mrndesign.www.matned.model.common.EntityDescription;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

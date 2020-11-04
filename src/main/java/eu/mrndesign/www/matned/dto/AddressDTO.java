@@ -2,19 +2,15 @@ package eu.mrndesign.www.matned.dto;
 
 import eu.mrndesign.www.matned.model.address.Address;
 
-import java.util.Objects;
-
 public class AddressDTO {
 
-    private String countryName;
-    private String countryCode;
-    private String cityName;
-    private String cityStreet;
-    private String cityStreetNo;
-    private String cityPostCode;
-    private String buildingNo;
-    private String floor;
-    private String apartment;
+    private String name;
+    private String description;
+    private String country;
+    private String city;
+    private String street;
+    private String number;
+    private String postCode;
 
 
     private AddressDTO() {
@@ -22,88 +18,82 @@ public class AddressDTO {
 
     public static AddressDTO apply(Address address) {
         AddressDTO addressDTO = new AddressDTO();
-        addressDTO.countryName = address.getCountry().getCountryName();
-        addressDTO.countryCode = address.getCountry().getCountryCode();
-        addressDTO.cityName = address.getCity().getCityName();
-        addressDTO.cityStreet = address.getCity().getCityStreet();
-        addressDTO.cityStreetNo = address.getCity().getCityStreetNo();
-        addressDTO.cityPostCode = address.getCity().getCityPostCode();
-        addressDTO.buildingNo = address.getBuilding().getBuildingNo();
-        addressDTO.floor = address.getBuilding().getFloor();
-        addressDTO.apartment = address.getBuilding().getApartment();
-
+        addressDTO.country = address.getCountry().getCountryName();
+        addressDTO.city = address.getCity().getCityName();
+        addressDTO.street = address.getStreet().getStreetName();
+        addressDTO.number = address.getNumber();
+        addressDTO.postCode = address.getStreet().getPostCode();
+        addressDTO.name = address.getEntityDescription().getName();
+        addressDTO.description = address.getEntityDescription().getDescription();
         return addressDTO;
     }
 
-    public String getCountryName() {
-        return countryName;
+    public String getName() {
+        return name;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getDescription() {
+        return description;
     }
 
-    public String getCityStreet() {
-        return cityStreet;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getCityStreetNo() {
-        return cityStreetNo;
+    public String getCountry() {
+        return country;
     }
 
-    public String getCityPostCode() {
-        return cityPostCode;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getBuildingNo() {
-        return buildingNo;
+    public String getCity() {
+        return city;
     }
 
-    public String getFloor() {
-        return floor;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getApartment() {
-        return apartment;
+    public String getStreet() {
+        return street;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AddressDTO)) return false;
-        AddressDTO that = (AddressDTO) o;
-        return countryName.equals(that.countryName)
-                && Objects.equals(countryCode, that.countryCode)
-                && cityName.equals(that.cityName)
-                && cityStreet.equals(that.cityStreet)
-                && cityStreetNo.equals(that.cityStreetNo)
-                && Objects.equals(cityPostCode, that.cityPostCode)
-                && Objects.equals(buildingNo, that.buildingNo)
-                && Objects.equals(floor, that.floor)
-                && Objects.equals(apartment, that.apartment);
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(countryName, countryCode, cityName, cityStreet, cityStreetNo, cityPostCode, buildingNo, floor, apartment);
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
     }
 
     @Override
     public String toString() {
         return "AddressDTO{" +
-                "countryName= '" + countryName + '\'' +
-                ", countryCode= '" + countryCode + '\'' +
-                ", cityName= '" + cityName + '\'' +
-                ", cityStreet= '" + cityStreet + '\'' +
-                ", cityStreetNo= '" + cityStreetNo + '\'' +
-                ", cityPostCode= '" + cityPostCode + '\'' +
-                ", buildingNo= '" + buildingNo + '\'' +
-                ", floor= '" + floor + '\'' +
-                ", apartment= '" + apartment + '\'' +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", number='" + number + '\'' +
+                ", postCode='" + postCode + '\'' +
                 '}';
     }
 }

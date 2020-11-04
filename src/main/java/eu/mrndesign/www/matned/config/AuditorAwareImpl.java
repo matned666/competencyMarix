@@ -1,8 +1,7 @@
 package eu.mrndesign.www.matned.config;
 
-import eu.mrndesign.www.matned.model.User;
+import eu.mrndesign.www.matned.model.security.User;
 import eu.mrndesign.www.matned.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.lang.NonNull;
 

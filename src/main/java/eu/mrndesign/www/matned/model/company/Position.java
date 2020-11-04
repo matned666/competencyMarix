@@ -1,6 +1,9 @@
-package eu.mrndesign.www.matned.model;
+package eu.mrndesign.www.matned.model.company;
 
-import org.springframework.data.jpa.domain.AbstractAuditable;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
+import eu.mrndesign.www.matned.model.audit.BaseEntity;
+import eu.mrndesign.www.matned.model.common.EntityDescription;
+import eu.mrndesign.www.matned.model.common.EntityDescriptionImplementation;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Embedded;
@@ -10,7 +13,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Position  extends BaseEntity implements AuditInterface, EntityDescriptionImplementation{
+public class Position  extends BaseEntity implements AuditInterface, EntityDescriptionImplementation {
 
 
 

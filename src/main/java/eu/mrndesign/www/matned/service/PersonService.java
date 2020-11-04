@@ -1,20 +1,14 @@
 package eu.mrndesign.www.matned.service;
 
 import eu.mrndesign.www.matned.dto.PersonDTO;
-import eu.mrndesign.www.matned.dto.PositionDTO;
-import eu.mrndesign.www.matned.model.Person;
-import eu.mrndesign.www.matned.model.Position;
+import eu.mrndesign.www.matned.model.personal.Person;
 import eu.mrndesign.www.matned.model.address.Address;
 import eu.mrndesign.www.matned.repository.AddressRepository;
 import eu.mrndesign.www.matned.repository.PersonRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,10 +35,12 @@ public class PersonService extends BaseService{
         this.personRepository = personRepository;
     }
 
+//    TODO make pageable
     public List<PersonDTO> findAll(){
         return convertEntityListToDTOList(personRepository.findAll());
     }
 
+//    TODO make pageable
     public List<PersonDTO> findAll(Integer startPage, Integer itemsPerPage, String[] sortBy) {
         Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
         Page<Person> persons = personRepository.findAll(pageable);
@@ -95,17 +91,18 @@ public class PersonService extends BaseService{
         return PersonDTO.apply(personRepository.save(person));
     }
 
-    public List<PersonDTO> findByFirstName(String firstName){
-        return convertEntityListToDTOList(personRepository.findByFirstNameNotPrecise(firstName));
-    }
-
-    public List<PersonDTO> findByLastName(String lastName){
-        return convertEntityListToDTOList(personRepository.findByLastNameNotPrecise(lastName));
-    }
-
-    public List<PersonDTO> findByAddress(Long addressId){
-        return convertEntityListToDTOList(personRepository.findByAddressId(addressId));
-    }
+//    TODO make pageable
+//    public List<PersonDTO> findByFirstName(String firstName){
+//        return convertEntityListToDTOList(personRepository.findByFirstNameNotPrecise(firstName));
+//    }
+//
+//    public List<PersonDTO> findByLastName(String lastName){
+//        return convertEntityListToDTOList(personRepository.findByLastNameNotPrecise(lastName));
+//    }
+//
+//    public List<PersonDTO> findByAddress(Long addressId){
+//        return convertEntityListToDTOList(personRepository.findByAddressId(addressId));
+//    }
 
 //    Package private
 

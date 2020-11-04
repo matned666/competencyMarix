@@ -1,6 +1,6 @@
 package eu.mrndesign.www.matned.config;
 
-import eu.mrndesign.www.matned.model.User;
+import eu.mrndesign.www.matned.model.security.User;
 import eu.mrndesign.www.matned.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories(basePackages = {"eu.mrndesign.www.matned"})
 @EnableTransactionManagement
-@EnableJpaAuditing
+//@EnableJpaAuditing
 public class AuditConfig {
 
     private final UserService userService;

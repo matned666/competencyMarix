@@ -1,8 +1,8 @@
 package eu.mrndesign.www.matned.dto;
 
 import eu.mrndesign.www.matned.dto.validation.UniqueEmail;
-import eu.mrndesign.www.matned.model.AuditInterface;
-import eu.mrndesign.www.matned.model.User;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
+import eu.mrndesign.www.matned.model.security.User;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;

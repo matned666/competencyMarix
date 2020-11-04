@@ -1,6 +1,6 @@
 package eu.mrndesign.www.matned.repository;
 
-import eu.mrndesign.www.matned.model.Manager;
+import eu.mrndesign.www.matned.model.company.Manager;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

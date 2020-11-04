@@ -1,6 +1,7 @@
-package eu.mrndesign.www.matned.model;
+package eu.mrndesign.www.matned.model.company;
 
-import org.springframework.data.jpa.domain.AbstractAuditable;
+import eu.mrndesign.www.matned.model.audit.BaseEntity;
+import eu.mrndesign.www.matned.model.personal.Person;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -16,8 +17,6 @@ public class Employee  extends BaseEntity {
     private Person person;
     @ManyToOne
     private Position position;
-    @OneToMany
-    private List<Inventory> inventory;
     @ManyToOne
     private Department department;
 

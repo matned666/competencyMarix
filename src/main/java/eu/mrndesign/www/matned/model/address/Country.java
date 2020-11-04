@@ -1,37 +1,38 @@
 package eu.mrndesign.www.matned.model.address;
 
-import javax.persistence.Embeddable;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
+import eu.mrndesign.www.matned.model.audit.BaseEntity;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Embeddable
-public class Country {
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+public class Country extends BaseEntity implements AuditInterface {
+
     private String countryName;
-    private String countryCode; // ex. PL DE FR IT
 
     public Country() {
     }
 
+    public Country(String countryName){
+        this.countryName = countryName;
+    }
 
     public String getCountryName() {
         return countryName;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
     }
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
     @Override
     public String toString() {
         return "Country {" +
                 "countryName= '" + countryName + '\'' +
-                ", countryCode= '" + countryCode + '\'' +
                 '}';
     }
 }

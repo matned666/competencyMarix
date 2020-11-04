@@ -1,6 +1,6 @@
 package eu.mrndesign.www.matned.config;
 
-import eu.mrndesign.www.matned.model.UserRole;
+import eu.mrndesign.www.matned.model.security.UserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

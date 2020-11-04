@@ -1,7 +1,7 @@
 package eu.mrndesign.www.matned.config;
 
-import eu.mrndesign.www.matned.model.User;
-import eu.mrndesign.www.matned.model.UserRole;
+import eu.mrndesign.www.matned.model.security.User;
+import eu.mrndesign.www.matned.model.security.UserRole;
 import eu.mrndesign.www.matned.repository.UserRepository;
 import eu.mrndesign.www.matned.repository.UserRoleRepository;
 import org.springframework.beans.factory.InitializingBean;

@@ -1,7 +1,7 @@
 package eu.mrndesign.www.matned.dto;
 
-import eu.mrndesign.www.matned.model.AuditInterface;
-import eu.mrndesign.www.matned.model.Position;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
+import eu.mrndesign.www.matned.model.company.Position;
 
 import javax.validation.constraints.NotEmpty;
 

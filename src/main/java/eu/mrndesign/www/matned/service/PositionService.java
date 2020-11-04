@@ -1,10 +1,8 @@
 package eu.mrndesign.www.matned.service;
 
-import eu.mrndesign.www.matned.dto.InventoryDTO;
 import eu.mrndesign.www.matned.dto.PositionDTO;
-import eu.mrndesign.www.matned.model.EntityDescription;
-import eu.mrndesign.www.matned.model.Inventory;
-import eu.mrndesign.www.matned.model.Position;
+import eu.mrndesign.www.matned.model.common.EntityDescription;
+import eu.mrndesign.www.matned.model.company.Position;
 import eu.mrndesign.www.matned.repository.PositionRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

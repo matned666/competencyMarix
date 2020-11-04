@@ -1,6 +1,7 @@
-package eu.mrndesign.www.matned.model;
+package eu.mrndesign.www.matned.model.audit;
 
 import eu.mrndesign.www.matned.dto.AuditDTO;
+import eu.mrndesign.www.matned.model.security.User;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.time.LocalDateTime;

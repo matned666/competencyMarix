@@ -1,6 +1,9 @@
-package eu.mrndesign.www.matned.model;
+package eu.mrndesign.www.matned.model.security;
 
 import eu.mrndesign.www.matned.dto.UserRegistrationDTO;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
+import eu.mrndesign.www.matned.model.audit.BaseEntity;
+import eu.mrndesign.www.matned.model.personal.Person;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -11,7 +14,7 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "USER_ENTITY")
-public class User  extends BaseEntity implements AuditInterface{
+public class User  extends BaseEntity implements AuditInterface {
 
     public static final String ROLE_NOT_FOUND = "Role not found";
 

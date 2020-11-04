@@ -1,4 +1,4 @@
-package eu.mrndesign.www.matned.model;
+package eu.mrndesign.www.matned.model.common;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

@@ -1,9 +1,8 @@
-package eu.mrndesign.www.matned.model;
+package eu.mrndesign.www.matned.model.audit;
 
+import eu.mrndesign.www.matned.model.security.User;
 import org.springframework.data.jpa.domain.AbstractAuditable;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 

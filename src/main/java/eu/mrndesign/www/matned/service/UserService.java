@@ -3,9 +3,9 @@ package eu.mrndesign.www.matned.service;
 import eu.mrndesign.www.matned.dto.PersonDTO;
 import eu.mrndesign.www.matned.dto.UserRegistrationDTO;
 import eu.mrndesign.www.matned.dto.UserDTO;
-import eu.mrndesign.www.matned.model.Person;
-import eu.mrndesign.www.matned.model.User;
-import eu.mrndesign.www.matned.model.UserRole;
+import eu.mrndesign.www.matned.model.personal.Person;
+import eu.mrndesign.www.matned.model.security.User;
+import eu.mrndesign.www.matned.model.security.UserRole;
 import eu.mrndesign.www.matned.repository.UserRepository;
 import eu.mrndesign.www.matned.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -111,6 +111,7 @@ public class UserService extends BaseService{
         return UserDTO.apply(user);
     }
 
+//    TODO make pageable
     public List<UserDTO> deleteUser(Long id) {
         userRepository.deleteById(id);
         return convertEntityToUserDTOList(userRepository.findAll());

@@ -3,7 +3,7 @@ package eu.mrndesign.www.matned.controller;
 import eu.mrndesign.www.matned.dto.PersonDTO;
 import eu.mrndesign.www.matned.dto.UserDTO;
 import eu.mrndesign.www.matned.dto.UserRegistrationDTO;
-import eu.mrndesign.www.matned.model.UserRole;
+import eu.mrndesign.www.matned.model.security.UserRole;
 import eu.mrndesign.www.matned.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

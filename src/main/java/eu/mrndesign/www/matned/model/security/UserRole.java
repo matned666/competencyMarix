@@ -1,5 +1,6 @@
-package eu.mrndesign.www.matned.model;
+package eu.mrndesign.www.matned.model.security;
 
+import eu.mrndesign.www.matned.model.audit.BaseEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ public class UserRole  extends BaseEntity {
     }
 
     public UserRole(Role roleName){
-        this.roleName = "ROLE_"+roleName.name();
+        this.roleName = roleName.roleName();
     }
 
     public static UserRole apply(Role roleName){

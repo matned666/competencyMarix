@@ -1,8 +1,8 @@
 package eu.mrndesign.www.matned.controller;
 
 import eu.mrndesign.www.matned.dto.InventoryDTO;
-import eu.mrndesign.www.matned.model.EntityDescription;
-import eu.mrndesign.www.matned.model.Inventory;
+import eu.mrndesign.www.matned.model.common.EntityDescription;
+import eu.mrndesign.www.matned.model.company.Inventory;
 import eu.mrndesign.www.matned.repository.InventoryRepository;
 import eu.mrndesign.www.matned.service.InventoryService;
 import org.json.JSONObject;
@@ -88,7 +88,6 @@ public class InventoryControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("price", 2222).exists())
                 .andReturn();
-
     }
 
     @Test

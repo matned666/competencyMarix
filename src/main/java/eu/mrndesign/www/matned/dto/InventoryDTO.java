@@ -1,7 +1,7 @@
 package eu.mrndesign.www.matned.dto;
 
-import eu.mrndesign.www.matned.model.AuditInterface;
-import eu.mrndesign.www.matned.model.Inventory;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
+import eu.mrndesign.www.matned.model.company.Inventory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

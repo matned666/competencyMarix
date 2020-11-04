@@ -1,8 +1,8 @@
 package eu.mrndesign.www.matned.service;
 
 import eu.mrndesign.www.matned.dto.PersonDTO;
-import eu.mrndesign.www.matned.model.Person;
-import eu.mrndesign.www.matned.model.User;
+import eu.mrndesign.www.matned.model.personal.Person;
+import eu.mrndesign.www.matned.model.security.User;
 import eu.mrndesign.www.matned.model.address.Address;
 import eu.mrndesign.www.matned.repository.AddressRepository;
 import eu.mrndesign.www.matned.repository.PersonRepository;

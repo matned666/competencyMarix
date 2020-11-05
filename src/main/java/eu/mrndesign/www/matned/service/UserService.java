@@ -26,11 +26,6 @@ public class UserService extends BaseService{
     @Value("${default.admin.username}")
     private String defaultAdminLogin;
 
-    @Value("${default.sort.by}") private String defaultSortBy;
-    @Value("${default.page.start}") private Integer defaultStartPage;
-    @Value("${default.page.size}") private Integer defaultPageSize;
-
-
     public static final String USER_NOT_FOUND = "User not found";
     private final PasswordEncoder passwordEncoder;
     private final HttpServletRequest request;

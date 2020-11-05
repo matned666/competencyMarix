@@ -1,6 +1,9 @@
 package eu.mrndesign.www.matned.service;
 
 import eu.mrndesign.www.matned.dto.AddressDTO;
+import eu.mrndesign.www.matned.dto.CityDTO;
+import eu.mrndesign.www.matned.dto.CountryDTO;
+import eu.mrndesign.www.matned.dto.StreetDTO;
 import eu.mrndesign.www.matned.model.address.Address;
 import eu.mrndesign.www.matned.model.address.City;
 import eu.mrndesign.www.matned.model.address.Country;
@@ -16,7 +19,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -198,7 +200,6 @@ class AddressServiceTest {
         doReturn(new PageImpl<>(addresses.subList(0, 3), pageable, addresses.size())).when(addressRepository).findByCountry(any(), any());
 
         assertEquals(addressService.findByCountry("country", 1,2,new String[]{"anything"}), addressesDTOs);
-
     }
 
     @Test
@@ -211,4 +212,40 @@ class AddressServiceTest {
         assertEquals(addressService.delete(1L).get(1), addressesDTOs.get(1));
         assertEquals(addressService.delete(1L).get(2), addressesDTOs.get(2));
     }
+
+    @Test
+    void findAllStreets(){
+        Pageable pageable = addressService.getPageable(1,1,new String[]{"anything"});
+
+        doReturn(new PageImpl<>(streets.subList(0, 3), pageable, streets.size())).when(streetRepository).findAll((Pageable) any());
+
+        assertEquals(addressService.findAllStreets(0,1,new String[]{}).get(0), StreetDTO.apply(streets.get(0)));
+        assertEquals(addressService.findAllStreets(0,1,new String[]{}).get(1), StreetDTO.apply(streets.get(1)));
+        assertEquals(addressService.findAllStreets(0,1,new String[]{}).get(2), StreetDTO.apply(streets.get(2)));
+    }
+
+    @Test
+    void findAllCities(){
+        Pageable pageable = addressService.getPageable(1,1,new String[]{"anything"});
+
+        doReturn(new PageImpl<>(cities.subList(0, 3), pageable, cities.size())).when(cityRepository).findAll((Pageable) any());
+
+        assertEquals(addressService.findAllCities(0,1,new String[]{}).get(0), CityDTO.apply(cities.get(0)));
+        assertEquals(addressService.findAllCities(0,1,new String[]{}).get(1), CityDTO.apply(cities.get(1)));
+        assertEquals(addressService.findAllCities(0,1,new String[]{}).get(2), CityDTO.apply(cities.get(2)));
+    }
+
+    @Test
+    void findAllCountries(){
+        Pageable pageable = addressService.getPageable(1,1,new String[]{"anything"});
+
+        doReturn(new PageImpl<>(countries.subList(0, 3), pageable, countries.size())).when(countryRepository).findAll((Pageable) any());
+
+        assertEquals(addressService.findAllCountries(0,1,new String[]{}).get(0), CountryDTO.apply(countries.get(0)));
+        assertEquals(addressService.findAllCountries(0,1,new String[]{}).get(1), CountryDTO.apply(countries.get(1)));
+        assertEquals(addressService.findAllCountries(0,1,new String[]{}).get(2), CountryDTO.apply(countries.get(2)));
+    }
+
+
+
 }

@@ -2,6 +2,8 @@ package eu.mrndesign.www.matned.dto;
 
 import eu.mrndesign.www.matned.model.address.Address;
 
+import java.util.Objects;
+
 public class AddressDTO {
 
     private String name;
@@ -82,6 +84,25 @@ public class AddressDTO {
 
     public void setPostCode(String postCode) {
         this.postCode = postCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddressDTO that = (AddressDTO) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(country, that.country) &&
+                Objects.equals(city, that.city) &&
+                Objects.equals(street, that.street) &&
+                Objects.equals(number, that.number) &&
+                Objects.equals(postCode, that.postCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, country, city, street, number, postCode);
     }
 
     @Override

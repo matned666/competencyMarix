@@ -22,12 +22,10 @@ public class InventoryService extends BaseService{
         this.inventoryRepository = inventoryRepository;
     }
 
-//    TODO make pageable
     public List<InventoryDTO> findAll() {
         return covertListToDTOList(inventoryRepository.findAll());
     }
 
-//    TODO make pageable
     public List<InventoryDTO> findAll(Integer startPage, Integer itemsPerPage, String[] sortBy) {
         Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
         Page<Inventory> inventories = inventoryRepository.findAll(pageable);

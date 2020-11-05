@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -124,8 +125,8 @@ class PersonServiceTest {
 
     @Test
     void sortingTestByFirstName(){
-        doReturn(people).when(personRepository).findByFirstNameNotPrecise("testname");
-        List<PersonDTO> sorted = personService.findByFirstName("testname");
+        doReturn(people).when(personRepository).findByFirstNameNotPrecise("testname", any());
+        List<PersonDTO> sorted = personService.findByFirstName("testname", any(), any(), any());
 
         assertEquals(sorted.size(), 3);
     }

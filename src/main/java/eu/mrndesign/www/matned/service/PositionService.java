@@ -30,31 +30,8 @@ public class PositionService extends BaseService {
     }
 
     public List<PositionDTO> findAll(Integer startPage, Integer itemsPerPage, String[] sortBy) {
-        List<Order> orders = new ArrayList<>();
-        for (String sortElement : sortBy) {
-            if (sortElement.contains(",")) {
-                String[] _order = sortElement.split(",");
-                orders.add(new Order(getSortDirection(_order[1]), _order[0]));
-            } else {
-                if (sortElement.equals("desc") || sortElement.equals("asc") ) {
-
-                    String _sortBy = orders.get(orders.size() - 1).getProperty();
-                    orders.remove(orders.size() - 1);
-                    orders.add(new Order(getSortDirection(sortElement), _sortBy));
-                } else orders.add(new Order(getSortDirection("asc"), sortElement));
-            }
-        }
-        Pageable pageable;
-        try {
-            pageable = PageRequest.of(startPage, itemsPerPage, Sort.by(orders));
-        }catch (Exception e){
-            e.printStackTrace();
-            pageable = PageRequest.of(startPage, itemsPerPage,
-                    Sort.by(new Order(getSortDirection("asc"),"id")));
-        }
-        Page<Position> positions = positionRepository.findAll(pageable);
-        List<Position> _positions = positions.getContent();
-        return convertEntityToDTOList(_positions);
+        Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
+        return convertEntityToDTOList(positionRepository.findAll(pageable).getContent());
     }
 
     public PositionDTO findById(Long id) {

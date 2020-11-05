@@ -26,6 +26,10 @@ public class UserService extends BaseService{
     @Value("${default.admin.username}")
     private String defaultAdminLogin;
 
+    @Value("${default.sort.by}") private String defaultSortBy;
+    @Value("${default.page.start}") private Integer defaultStartPage;
+    @Value("${default.page.size}") private Integer defaultPageSize;
+
 
     public static final String USER_NOT_FOUND = "User not found";
     private final PasswordEncoder passwordEncoder;
@@ -111,10 +115,9 @@ public class UserService extends BaseService{
         return UserDTO.apply(user);
     }
 
-//    TODO make pageable
     public List<UserDTO> deleteUser(Long id) {
         userRepository.deleteById(id);
-        return convertEntityToUserDTOList(userRepository.findAll());
+        return findAll(defaultStartPage, defaultPageSize, new String[]{defaultSortBy});
     }
 
     public PersonDTO getUserPersonalData(Long id) {

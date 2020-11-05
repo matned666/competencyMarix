@@ -35,12 +35,10 @@ public class PersonService extends BaseService{
         this.personRepository = personRepository;
     }
 
-//    TODO make pageable
     public List<PersonDTO> findAll(){
         return convertEntityListToDTOList(personRepository.findAll());
     }
 
-//    TODO make pageable
     public List<PersonDTO> findAll(Integer startPage, Integer itemsPerPage, String[] sortBy) {
         Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
         Page<Person> persons = personRepository.findAll(pageable);
@@ -91,18 +89,20 @@ public class PersonService extends BaseService{
         return PersonDTO.apply(personRepository.save(person));
     }
 
-//    TODO make pageable
-//    public List<PersonDTO> findByFirstName(String firstName){
-//        return convertEntityListToDTOList(personRepository.findByFirstNameNotPrecise(firstName));
-//    }
-//
-//    public List<PersonDTO> findByLastName(String lastName){
-//        return convertEntityListToDTOList(personRepository.findByLastNameNotPrecise(lastName));
-//    }
-//
-//    public List<PersonDTO> findByAddress(Long addressId){
-//        return convertEntityListToDTOList(personRepository.findByAddressId(addressId));
-//    }
+    public List<PersonDTO> findByFirstName(String firstName, Integer startPage, Integer itemsPerPage, String[] sortBy){
+        Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
+        return convertEntityListToDTOList(personRepository.findByFirstNameNotPrecise(firstName, pageable).getContent());
+    }
+
+    public List<PersonDTO> findByLastName(String lastName, Integer startPage, Integer itemsPerPage, String[] sortBy){
+        Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
+        return convertEntityListToDTOList(personRepository.findByLastNameNotPrecise(lastName, pageable).getContent());
+    }
+
+    public List<PersonDTO> findByAddress(Long addressId, Integer startPage, Integer itemsPerPage, String[] sortBy){
+        Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
+        return convertEntityListToDTOList(personRepository.findByAddressId(addressId, pageable).getContent());
+    }
 
 //    Package private
 

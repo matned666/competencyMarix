@@ -16,12 +16,17 @@ import eu.mrndesign.www.matned.repository.StreetRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class AddressService extends BaseService {
+public class AddressService extends BaseService<AddressDTO> {
 
+    public static final String POST = "post";
+    public static final String CITY = "city";
+    public static final String STREET = "street";
+    public static final String COUNTRY = "country";
     public final String ADDRESS_NOT_FOUND = "Address not found";
     public final String PROVIDE_EMPTY_DATA = "Address can't be empty";
 
@@ -41,11 +46,11 @@ public class AddressService extends BaseService {
     }
 
 
-    public AddressDTO findAddressById(Long id) {
+    public AddressDTO findById(Long id) {
         return AddressDTO.apply(addressRepository.findById(id).orElseThrow(() -> new RuntimeException(ADDRESS_NOT_FOUND)));
     }
 
-    public AddressDTO addAddress(AddressDTO dto) {
+    public AddressDTO add(AddressDTO dto) {
         if (dto != null) {
             Address entity = new Address(
                     dto.getNumber(),
@@ -58,7 +63,7 @@ public class AddressService extends BaseService {
     }
 
     public AddressDTO update(Long id, AddressDTO dto) {
-        Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("No address found"));
+        Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException(ADDRESS_NOT_FOUND));
         updateAddress(address, dto);
         return AddressDTO.apply(addressRepository.save(address));
     }
@@ -70,27 +75,33 @@ public class AddressService extends BaseService {
 
     public List<AddressDTO> findByStreet(String streetName, Integer startPage, Integer itemsPerPage, String[] sortBy) {
         Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
-        return convertAddressEntityToDTOList(addressRepository.findByStreetName(streetName, pageable).getContent());
+        List<AddressDTO> list = convertAddressEntityToDTOList(addressRepository.findByStreetName(streetName, pageable).getContent());
+        return getAddressDTOsSortedByStreetRelevance(streetName, list, STREET);
     }
+
+
 
     public List<AddressDTO> findByPostCode(String postCode, Integer startPage, Integer itemsPerPage, String[] sortBy) {
         Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
-        return convertAddressEntityToDTOList(addressRepository.findByPostCode(postCode, pageable).getContent());
+        List<AddressDTO> list =  convertAddressEntityToDTOList(addressRepository.findByPostCode(postCode, pageable).getContent());
+        return getAddressDTOsSortedByStreetRelevance(postCode, list, POST);
     }
 
     public List<AddressDTO> findByCity(String city, Integer startPage, Integer itemsPerPage, String[] sortBy) {
         Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
-        return convertAddressEntityToDTOList(addressRepository.findByCity(city, pageable).getContent());
+        List<AddressDTO> list =  convertAddressEntityToDTOList(addressRepository.findByCity(city, pageable).getContent());
+        return getAddressDTOsSortedByStreetRelevance(city, list, CITY);
     }
 
     public List<AddressDTO> findByCountry(String country, Integer startPage, Integer itemsPerPage, String[] sortBy) {
         Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
-        return convertAddressEntityToDTOList(addressRepository.findByCountry(country, pageable).getContent());
+        List<AddressDTO> list =  convertAddressEntityToDTOList(addressRepository.findByCountry(country, pageable).getContent());
+        return getAddressDTOsSortedByStreetRelevance(country, list, COUNTRY);
     }
 
-    public List<AddressDTO> delete(Long id) {
+    public List<AddressDTO> delete(Long id, Integer startPage, Integer itemsPerPage, String[] sortBy) {
         addressRepository.deleteById(id);
-        return findAll(defaultStartPage, defaultPageSize, new String[]{defaultSortBy});
+        return findAll(startPage, itemsPerPage, sortBy);
     }
 
     public List<StreetDTO> findAllStreets(Integer startPage, Integer itemsPerPage, String[] sortBy) {
@@ -112,6 +123,16 @@ public class AddressService extends BaseService {
 
     //    Privates
 
+    protected boolean getSortingFilter(AddressDTO x, String searchedValue, String type) {
+        switch (type){
+            case STREET: return x.getStreet().equalsIgnoreCase(searchedValue);
+            case POST: return x.getPostCode().equalsIgnoreCase(searchedValue);
+            case CITY: return x.getCity().equalsIgnoreCase(searchedValue);
+            case COUNTRY: return x.getCountry().equalsIgnoreCase(searchedValue);
+        }
+        return false;
+    }
+
     private List<StreetDTO> convertStreetEntityToDTOList(List<Street> content) {
         return content.stream()
                 .map(StreetDTO::apply)
@@ -121,12 +142,14 @@ public class AddressService extends BaseService {
     private List<CityDTO> convertCityEntityToDTOList(List<City> content) {
         return content.stream()
                 .map(CityDTO::apply)
-                .collect(Collectors.toList());    }
+                .collect(Collectors.toList());
+    }
 
     private List<CountryDTO> convertCountryEntityToDTOList(List<Country> content) {
         return content.stream()
                 .map(CountryDTO::apply)
-                .collect(Collectors.toList());    }
+                .collect(Collectors.toList());
+    }
 
     private List<AddressDTO> convertAddressEntityToDTOList(List<Address> addresses) {
         return addresses.stream()

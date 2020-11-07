@@ -13,15 +13,15 @@ import java.net.ContentHandler;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
-    @Query("select a from Address a inner join Street s where lower(s.streetName) = lower(:street)")
-    Page<Address> findByStreetName(@Param("street") String streetName, Pageable pageable);
+    @Query("select a from Address a inner join Street s where lower(s.streetName) like lower(concat('%', concat(:searchedElement, '%')))")
+    Page<Address> findByStreetName(@Param("street") String searchedElement, Pageable pageable);
 
-    @Query("select a from Address a inner join Street s where lower(s.postCode) = lower(:postCode)")
-    Page<Address> findByPostCode(@Param("postCode") String streetName, Pageable pageable);
+    @Query("select a from Address a inner join Street s where lower(s.postCode) like lower(concat('%', concat(:searchedElement, '%')))")
+    Page<Address> findByPostCode(@Param("postCode") String searchedElement, Pageable pageable);
 
-    @Query("select a from Address a inner join City c where lower(c.cityName) = lower(:city)")
-    Page<Address> findByCity(@Param("city") String streetName, Pageable pageable);
+    @Query("select a from Address a inner join City c where lower(c.cityName) like lower(concat('%', concat(:searchedElement, '%')))")
+    Page<Address> findByCity(@Param("city") String searchedElement, Pageable pageable);
 
-    @Query("select a from Address a inner join Country c where lower(c.countryName) = lower(:country)")
-    Page<Address> findByCountry(@Param("country") String streetName, Pageable pageable);
+    @Query("select a from Address a inner join Country c where lower(c.countryName) like lower(concat('%', concat(:searchedElement, '%')))")
+    Page<Address> findByCountry(@Param("country") String searchedElement, Pageable pageable);
 }

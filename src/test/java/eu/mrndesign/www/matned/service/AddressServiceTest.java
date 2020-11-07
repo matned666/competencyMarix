@@ -90,26 +90,26 @@ class AddressServiceTest {
     void findAddressById() {
         doReturn(Optional.of(addresses.get(0))).when(addressRepository).findById(any());
 
-        assertEquals(addressService.findAddressById(1L), addressesDTOs.get(0));
+        assertEquals(addressService.findById(1L), addressesDTOs.get(0));
     }
 
     @Test
     void findAddressByIdNotFoundThrowsRuntimeException() {
         doReturn(null).when(addressRepository).findById(any());
 
-        assertThrows(RuntimeException.class, () -> addressService.findAddressById(1L), ADDRESS_NOT_FOUND);
+        assertThrows(RuntimeException.class, () -> addressService.findById(1L), ADDRESS_NOT_FOUND);
     }
 
     @Test
     void addAddress() {
         doReturn(addresses.get(0)).when(addressRepository).save(any());
 
-        assertEquals(addressService.addAddress(addressesDTOs.get(0)), addressesDTOs.get(0));
+        assertEquals(addressService.add(addressesDTOs.get(0)), addressesDTOs.get(0));
     }
 
     @Test
     void addAddressThrowsRuntimeExceptionWhenEmptyAddressProvided() {
-        assertThrows(RuntimeException.class, ()->addressService.addAddress(null), addressService.PROVIDE_EMPTY_DATA);
+        assertThrows(RuntimeException.class, ()->addressService.add(null), addressService.PROVIDE_EMPTY_DATA);
     }
 
     @Test
@@ -156,7 +156,7 @@ class AddressServiceTest {
     void updateThtowsRuntimeExceptionWhenNoUserFound() {
         doReturn(null).when(addressRepository).findById(any());
 
-        assertThrows(RuntimeException.class, () -> addressService.findAddressById(1L), ADDRESS_NOT_FOUND);
+        assertThrows(RuntimeException.class, () -> addressService.findById(1L), ADDRESS_NOT_FOUND);
     }
 
     @Test
@@ -195,6 +195,18 @@ class AddressServiceTest {
     }
 
     @Test
+    void findBySortingTest_firstExactSearches() {
+        Pageable pageable = addressService.getPageable(1,1,new String[]{"anything"});
+        doReturn(new PageImpl<>(addresses.subList(0, 3), pageable, addresses.size())).when(addressRepository).findByCity(any(), any());
+
+        List<AddressDTO> sortedList = addressService.findByCity("city2", 1,2,new String[]{"anything"});
+
+        assertEquals(sortedList.get(0), addressesDTOs.get(1));
+        assertEquals(sortedList.get(1), addressesDTOs.get(0));
+        assertEquals(sortedList.get(2), addressesDTOs.get(2));
+    }
+
+    @Test
     void findByCountry() {
         Pageable pageable = addressService.getPageable(1,1,new String[]{"anything"});
         doReturn(new PageImpl<>(addresses.subList(0, 3), pageable, addresses.size())).when(addressRepository).findByCountry(any(), any());
@@ -208,9 +220,9 @@ class AddressServiceTest {
 
         doReturn(new PageImpl<>(addresses.subList(0, 3), pageable, addresses.size())).when(addressRepository).findAll((Pageable) any());
 
-        assertEquals(addressService.delete(1L).get(0), addressesDTOs.get(0));
-        assertEquals(addressService.delete(1L).get(1), addressesDTOs.get(1));
-        assertEquals(addressService.delete(1L).get(2), addressesDTOs.get(2));
+        assertEquals(addressService.delete(1L, 0, 0, new String[]{}).get(0), addressesDTOs.get(0));
+        assertEquals(addressService.delete(1L, 0, 0, new String[]{}).get(1), addressesDTOs.get(1));
+        assertEquals(addressService.delete(1L, 0, 0, new String[]{}).get(2), addressesDTOs.get(2));
     }
 
     @Test

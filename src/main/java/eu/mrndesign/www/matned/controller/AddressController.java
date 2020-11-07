@@ -4,6 +4,7 @@ import eu.mrndesign.www.matned.dto.AddressDTO;
 import eu.mrndesign.www.matned.dto.CityDTO;
 import eu.mrndesign.www.matned.dto.CountryDTO;
 import eu.mrndesign.www.matned.dto.StreetDTO;
+import eu.mrndesign.www.matned.model.address.Country;
 import eu.mrndesign.www.matned.service.AddressService;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,17 @@ public class AddressController {
                                             @RequestParam(defaultValue = "all", name = "search") String search,
                                             @RequestParam(defaultValue = "", name = "element") String element
     ) {
-        switch (search){
-            case STREET: return addressService.findByStreet(element, page, amount, sort);
-            case POST: return addressService.findByPostCode(element, page, amount, sort);
-            case CITY: return addressService.findByCity(element, page, amount, sort);
-            case COUNTRY: return addressService.findByCountry(element, page, amount, sort);
-            default: return addressService.findAll(page, amount, sort);
+        switch (search) {
+            case STREET:
+                return addressService.findByStreet(element, page, amount, sort);
+            case POST:
+                return addressService.findByPostCode(element, page, amount, sort);
+            case CITY:
+                return addressService.findByCity(element, page, amount, sort);
+            case COUNTRY:
+                return addressService.findByCountry(element, page, amount, sort);
+            default:
+                return addressService.findAll(page, amount, sort);
 
         }
     }
@@ -62,7 +68,7 @@ public class AddressController {
     public List<AddressDTO> deleteAddress(@PathVariable Long id,
                                           @RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
                                           @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
-                                          @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount){
+                                          @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount) {
         return addressService.delete(id, page, amount, sort);
     }
 
@@ -70,7 +76,7 @@ public class AddressController {
     @ResponseBody
     public List<StreetDTO> getAllStreets(@RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
                                          @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
-                                         @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount){
+                                         @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount) {
         return addressService.findAllStreets(page, amount, sort);
     }
 
@@ -78,7 +84,7 @@ public class AddressController {
     @ResponseBody
     public List<CityDTO> getAllCities(@RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
                                       @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
-                                      @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount){
+                                      @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount) {
         return addressService.findAllCities(page, amount, sort);
     }
 
@@ -86,11 +92,33 @@ public class AddressController {
     @ResponseBody
     public List<CountryDTO> getAllCountries(@RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
                                             @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
-                                            @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount){
+                                            @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount) {
         return addressService.findAllCountries(page, amount, sort);
     }
 
+    @DeleteMapping("/address/street/{id}")
+    public List<StreetDTO> deleteStreet(@PathVariable Long id,
+                             @RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
+                             @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
+                             @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount) {
+        return addressService.deleteStreet(id, page, amount, sort);
+    }
 
+    @DeleteMapping("/address/city/{id}")
+    public List<CityDTO> deleteCity(@PathVariable Long id,
+                           @RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
+                           @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
+                           @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount) {
+        return addressService.deleteCity(id, page, amount, sort);
+    }
+
+    @DeleteMapping("/address/country/{id}")
+    public List<CountryDTO> deleteCountry(@PathVariable Long id,
+                                       @RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
+                                       @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
+                                       @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount) {
+        return addressService.deleteCountry(id, page, amount, sort);
+    }
 
 
 }

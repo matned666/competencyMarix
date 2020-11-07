@@ -119,7 +119,20 @@ public class AddressService extends BaseService<AddressDTO> {
         return convertCountryEntityToDTOList(countryRepository.findAll(pageable).getContent());
     }
 
+    public List<StreetDTO> deleteStreet(Long id, Integer page, Integer amount, String[] sort) {
+        streetRepository.deleteById(id);
+        return findAllStreets(page, amount, sort);
+    }
 
+    public List<CityDTO> deleteCity(Long id, Integer page, Integer amount, String[] sort) {
+        cityRepository.deleteById(id);
+        return findAllCities(page, amount, sort);
+    }
+
+    public List<CountryDTO> deleteCountry(Long id, Integer page, Integer amount, String[] sort) {
+        countryRepository.deleteById(id);
+        return findAllCountries(page, amount, sort);
+    }
 
     //    Privates
 
@@ -195,4 +208,5 @@ public class AddressService extends BaseService<AddressDTO> {
         return countryRepository.findCountryByName(countryFromDTO)
                 .orElse(countryRepository.save(new Country(countryFromDTO)));
     }
+
 }

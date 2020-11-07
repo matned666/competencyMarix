@@ -1,5 +1,6 @@
 package eu.mrndesign.www.matned.model.address;
 
+import eu.mrndesign.www.matned.dto.StreetDTO;
 import eu.mrndesign.www.matned.model.audit.AuditInterface;
 import eu.mrndesign.www.matned.model.audit.BaseEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,6 +11,10 @@ import javax.persistence.EntityListeners;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Street extends BaseEntity implements AuditInterface {
+
+    public static Street apply(StreetDTO dto){
+        return new Street(dto.getPostCode(), dto.getStreetName());
+    }
 
     private String postCode;
     private String streetName;

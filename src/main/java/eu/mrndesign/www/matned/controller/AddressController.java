@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static eu.mrndesign.www.matned.service.AddressService.*;
+
 @RestController
+
 public class AddressController {
 
     private final AddressService addressService;
@@ -27,10 +30,10 @@ public class AddressController {
                                             @RequestParam(defaultValue = "", name = "element") String element
     ) {
         switch (search){
-            case "street": return addressService.findByStreet(element, page, amount, sort);
-            case "postcode": return addressService.findByPostCode(element, page, amount, sort);
-            case "city": return addressService.findByCity(element, page, amount, sort);
-            case "country": return addressService.findByCountry(element, page, amount, sort);
+            case STREET: return addressService.findByStreet(element, page, amount, sort);
+            case POST: return addressService.findByPostCode(element, page, amount, sort);
+            case CITY: return addressService.findByCity(element, page, amount, sort);
+            case COUNTRY: return addressService.findByCountry(element, page, amount, sort);
             default: return addressService.findAll(page, amount, sort);
 
         }

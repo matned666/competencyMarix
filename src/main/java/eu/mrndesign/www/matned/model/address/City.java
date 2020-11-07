@@ -1,5 +1,6 @@
 package eu.mrndesign.www.matned.model.address;
 
+import eu.mrndesign.www.matned.dto.CityDTO;
 import eu.mrndesign.www.matned.model.audit.AuditInterface;
 import eu.mrndesign.www.matned.model.audit.BaseEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,6 +12,10 @@ import javax.persistence.EntityListeners;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class City extends BaseEntity implements AuditInterface {
+
+    public static City apply(CityDTO dto){
+        return new City(dto.getCityName());
+    }
 
     private String cityName;
 

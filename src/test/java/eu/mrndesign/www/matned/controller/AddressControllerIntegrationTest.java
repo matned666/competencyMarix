@@ -1,9 +1,5 @@
 package eu.mrndesign.www.matned.controller;
 
-import eu.mrndesign.www.matned.dto.AddressDTO;
-import eu.mrndesign.www.matned.dto.CityDTO;
-import eu.mrndesign.www.matned.dto.CountryDTO;
-import eu.mrndesign.www.matned.dto.StreetDTO;
 import eu.mrndesign.www.matned.model.address.Address;
 import eu.mrndesign.www.matned.model.address.City;
 import eu.mrndesign.www.matned.model.address.Country;
@@ -18,25 +14,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import static eu.mrndesign.www.matned.JsonOps.asJsonString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,9 +34,6 @@ class AddressControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private AddressService addressService;
 
     @Autowired
     private AddressRepository addressRepository;

@@ -1,10 +1,18 @@
 package eu.mrndesign.www.matned.dto;
 
+import eu.mrndesign.www.matned.dto.audit.AuditDTO;
 import eu.mrndesign.www.matned.model.address.Street;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
 
 import java.util.Objects;
 
 public class StreetDTO {
+
+    public static StreetDTO applyWithAudit(Street entity){
+        StreetDTO dto = apply(entity);
+        dto.auditDTO = AuditInterface.apply(entity);
+        return dto;
+    }
 
     public static StreetDTO apply(Street entity){
         return new StreetDTO(entity.getStreetName(), entity.getPostCode());
@@ -12,6 +20,8 @@ public class StreetDTO {
 
     private String streetName;
     private String postCode;
+
+    private AuditDTO auditDTO;
 
     public StreetDTO() {
     }
@@ -35,6 +45,14 @@ public class StreetDTO {
 
     public void setPostCode(String postCode) {
         this.postCode = postCode;
+    }
+
+    public AuditDTO getAuditDTO() {
+        return auditDTO;
+    }
+
+    public void setAuditDTO(AuditDTO auditDTO) {
+        this.auditDTO = auditDTO;
     }
 
     @Override

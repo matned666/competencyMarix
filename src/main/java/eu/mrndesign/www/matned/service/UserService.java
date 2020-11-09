@@ -56,12 +56,12 @@ public class UserService extends BaseService{
         return convertEntityToUserDTOList(_users);
     }
 
-    public UserDTO findUserById(Long id) {return UserDTO.apply(userRepository.findById(id).orElseThrow(()->new RuntimeException(USER_NOT_FOUND)));}
+    public UserDTO findUserById(Long id) {return UserDTO.applyWithAudit(userRepository.findById(id).orElseThrow(()->new RuntimeException(USER_NOT_FOUND)));}
 
     public UserDTO add(UserRegistrationDTO dto){
         dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         UserRole role = userRoleRepository.findByRoleName(UserRole.Role.USER.roleName());
-        return UserDTO.apply(userRepository.save(User.applyRegistration(dto, role)));
+        return UserDTO.applyWithAudit(userRepository.save(User.applyRegistration(dto, role)));
     }
 
     public UserDTO updatePassword(Long id, UserRegistrationDTO dto){
@@ -69,13 +69,13 @@ public class UserService extends BaseService{
         dto.setPassword(passwordEncoder.encode(dto.getPassword()));  //  encoding password inside DTO for a better security
         entity.setPassword(dto.getPassword());
         userRepository.save(entity);
-        return UserDTO.apply(entity);
+        return UserDTO.applyWithAudit(entity);
     }
 
     public UserDTO updateLogin(Long id, UserDTO dto){
         User entity = userRepository.findById(id).orElseThrow(()->new RuntimeException(USER_NOT_FOUND));
         entity.setLogin(dto.getLogin());
-        return UserDTO.apply(userRepository.save(entity));
+        return UserDTO.applyWithAudit(userRepository.save(entity));
     }
 
     public UserDTO assignNewRole(Long userId, String role){
@@ -83,7 +83,7 @@ public class UserService extends BaseService{
         User entity = userRepository.findById(userId).orElseThrow(()->new RuntimeException(USER_NOT_FOUND));
         UserRole userRole = userRoleRepository.findByRoleName(parsedRole.roleName());
         entity.addRole(userRole);
-        return UserDTO.apply(userRepository.save(entity));
+        return UserDTO.applyWithAudit(userRepository.save(entity));
     }
 
     public UserDTO takeAwayRole(Long userId, String role){
@@ -91,7 +91,7 @@ public class UserService extends BaseService{
         User entity = userRepository.findById(userId).orElseThrow(()->new RuntimeException(USER_NOT_FOUND));
         UserRole userRole = userRoleRepository.findByRoleName(parsedRole.roleName());
         entity.removeRole(userRole);
-        return UserDTO.apply(userRepository.save(entity));
+        return UserDTO.applyWithAudit(userRepository.save(entity));
     }
 
     public UserDTO updateUserPersonalData(Long userId, Long personId){
@@ -99,7 +99,7 @@ public class UserService extends BaseService{
         User user = userRepository.findById(userId).orElseThrow(()->new RuntimeException(USER_NOT_FOUND));
         user.setPerson(person);
         userRepository.save(user);
-        return UserDTO.apply(user);
+        return UserDTO.applyWithAudit(user);
     }
 
 
@@ -107,7 +107,7 @@ public class UserService extends BaseService{
         User user = userRepository.findById(id).orElseThrow(()->new RuntimeException(USER_NOT_FOUND));
         user.setPerson(null);
         userRepository.save(user);
-        return UserDTO.apply(user);
+        return UserDTO.applyWithAudit(user);
     }
 
     public List<UserDTO> deleteUser(Long id) {
@@ -121,7 +121,7 @@ public class UserService extends BaseService{
 
 
     public UserDTO findUserByLogin(String login){
-        return UserDTO.apply(userRepository.findByLogin(login));
+        return UserDTO.applyWithAudit(userRepository.findByLogin(login));
     }
 
     public Optional<User> getAuditor() {
@@ -135,7 +135,7 @@ public class UserService extends BaseService{
 
     List<UserDTO> convertEntityToUserDTOList(List<User> all) {
         return all.stream()
-                .map(UserDTO::apply)
+                .map(UserDTO::applyWithAudit)
                 .collect(Collectors.toList());
     }
 }

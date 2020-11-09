@@ -1,10 +1,31 @@
 package eu.mrndesign.www.matned.dto;
 
+import eu.mrndesign.www.matned.dto.audit.AuditDTO;
 import eu.mrndesign.www.matned.model.address.Address;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
 
 import java.util.Objects;
 
 public class AddressDTO {
+
+    public static AddressDTO applyWithAudit(Address entity){
+        AddressDTO addressDTO = apply(entity);
+        addressDTO.auditDTO = AuditInterface.apply(entity);
+        return addressDTO;
+
+    }
+
+    public static AddressDTO apply(Address entity) {
+        AddressDTO addressDTO = new AddressDTO();
+        addressDTO.country = entity.getCountry().getCountryName();
+        addressDTO.city = entity.getCity().getCityName();
+        addressDTO.street = entity.getStreet().getStreetName();
+        addressDTO.number = entity.getNumber();
+        addressDTO.postCode = entity.getStreet().getPostCode();
+        addressDTO.name = entity.getEntityDescription().getName();
+        addressDTO.description = entity.getEntityDescription().getDescription();
+        return addressDTO;
+    }
 
     private String name;
     private String description;
@@ -12,22 +33,13 @@ public class AddressDTO {
     private String city;
     private String street;
     private String number;
+
     private String postCode;
+
+    private AuditDTO auditDTO;
 
 
     private AddressDTO() {
-    }
-
-    public static AddressDTO apply(Address address) {
-        AddressDTO addressDTO = new AddressDTO();
-        addressDTO.country = address.getCountry().getCountryName();
-        addressDTO.city = address.getCity().getCityName();
-        addressDTO.street = address.getStreet().getStreetName();
-        addressDTO.number = address.getNumber();
-        addressDTO.postCode = address.getStreet().getPostCode();
-        addressDTO.name = address.getEntityDescription().getName();
-        addressDTO.description = address.getEntityDescription().getDescription();
-        return addressDTO;
     }
 
     public String getName() {
@@ -86,6 +98,14 @@ public class AddressDTO {
         this.postCode = postCode;
     }
 
+    public AuditDTO getAuditDTO() {
+        return auditDTO;
+    }
+
+    public void setAuditDTO(AuditDTO auditDTO) {
+        this.auditDTO = auditDTO;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,6 +135,7 @@ public class AddressDTO {
                 ", street='" + street + '\'' +
                 ", number='" + number + '\'' +
                 ", postCode='" + postCode + '\'' +
+                ", auditDTO=" + auditDTO +
                 '}';
     }
 }

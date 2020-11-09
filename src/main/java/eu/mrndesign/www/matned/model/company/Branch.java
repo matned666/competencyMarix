@@ -1,6 +1,7 @@
 package eu.mrndesign.www.matned.model.company;
 
 import eu.mrndesign.www.matned.model.address.Address;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
 import eu.mrndesign.www.matned.model.audit.BaseEntity;
 import eu.mrndesign.www.matned.model.common.EntityDescription;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Branch extends BaseEntity {
+public class Branch extends BaseEntity implements AuditInterface {
 
     @Embedded
     private EntityDescription entityDescription;
@@ -47,6 +48,10 @@ public class Branch extends BaseEntity {
         this.address = address;
     }
 
+    public LocalDate getBranchCreationDate() {
+        return branchCreationDate;
+    }
+
     public List<Department> getDepartments() {
         return departments;
     }
@@ -59,6 +64,7 @@ public class Branch extends BaseEntity {
     public String toString() {
         return "Branch{" +
                 "entityDescription=" + entityDescription +
+                ", branchCreationDate=" + branchCreationDate +
                 ", address=" + address +
                 ", departments=" + departments +
                 '}';

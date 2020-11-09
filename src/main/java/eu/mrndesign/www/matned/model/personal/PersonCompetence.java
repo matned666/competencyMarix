@@ -1,5 +1,6 @@
 package eu.mrndesign.www.matned.model.personal;
 
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
 import eu.mrndesign.www.matned.model.audit.BaseEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class PersonCompetence  extends BaseEntity {
+public class PersonCompetence  extends BaseEntity implements AuditInterface {
 
     private Integer level;
 

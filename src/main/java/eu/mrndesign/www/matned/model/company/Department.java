@@ -1,5 +1,6 @@
 package eu.mrndesign.www.matned.model.company;
 
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
 import eu.mrndesign.www.matned.model.audit.BaseEntity;
 import eu.mrndesign.www.matned.model.common.EntityDescription;
 import eu.mrndesign.www.matned.model.common.EntityDescriptionImplementation;
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Department  extends BaseEntity implements EntityDescriptionImplementation {
+public class Department  extends BaseEntity implements EntityDescriptionImplementation, AuditInterface {
 
     @Embedded
     private EntityDescription entityDescription;

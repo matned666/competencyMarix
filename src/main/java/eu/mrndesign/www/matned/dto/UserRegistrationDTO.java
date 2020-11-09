@@ -1,5 +1,6 @@
 package eu.mrndesign.www.matned.dto;
 
+import eu.mrndesign.www.matned.dto.audit.AuditDTO;
 import eu.mrndesign.www.matned.dto.validation.PasswordMatches;
 import eu.mrndesign.www.matned.dto.validation.PasswordValidationObjectInterface;
 import eu.mrndesign.www.matned.dto.validation.UniqueEmail;
@@ -14,8 +15,12 @@ import javax.validation.constraints.Size;
 @PasswordMatches
 public class UserRegistrationDTO implements PasswordValidationObjectInterface {
 
-    public static UserRegistrationDTO apply(User entity){
+    public static UserRegistrationDTO applyWithAudit(User entity){
         return new UserRegistrationDTO(entity.getLogin(), entity.getPassword(), AuditInterface.apply(entity));
+    }
+
+    public static UserRegistrationDTO apply(User entity){
+        return new UserRegistrationDTO(entity.getLogin(), entity.getPassword());
     }
 
     @UniqueEmail(message = "It should be a unique email")

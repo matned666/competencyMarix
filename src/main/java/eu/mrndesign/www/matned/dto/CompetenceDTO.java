@@ -1,25 +1,35 @@
-package eu.mrndesign.www.matned.model.common;
+package eu.mrndesign.www.matned.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import eu.mrndesign.www.matned.dto.audit.AuditDTO;
+import eu.mrndesign.www.matned.model.audit.AuditInterface;
+import eu.mrndesign.www.matned.model.personal.Competence;
+
 import java.util.Objects;
 
-@Embeddable
-public class EntityDescription {
+public class CompetenceDTO {
 
-    private String name;
-    @Column(length = 2000)
-    private String description;
-
-    public EntityDescription() {
+    public static CompetenceDTO applyWithAudit(Competence entity){
+        CompetenceDTO dto = apply(entity);
+        dto.auditDTO = AuditInterface.apply(entity);
+        return dto;
     }
 
-    public EntityDescription(String name, String description) {
+    public static CompetenceDTO apply(Competence entity){
+        return new CompetenceDTO(entity.getEntityDescription().getName(), entity.getEntityDescription().getDescription());
+    }
+
+    private String name;
+    private String description;
+
+    private AuditDTO auditDTO;
+
+    public CompetenceDTO() {
+    }
+
+    public CompetenceDTO(String name, String description) {
         this.name = name;
         this.description = description;
     }
-
-
 
     public String getName() {
         return name;
@@ -41,7 +51,7 @@ public class EntityDescription {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EntityDescription that = (EntityDescription) o;
+        CompetenceDTO that = (CompetenceDTO) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description);
     }
@@ -53,7 +63,7 @@ public class EntityDescription {
 
     @Override
     public String toString() {
-        return "EntityDescription{" +
+        return "CompetenceDTO{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';

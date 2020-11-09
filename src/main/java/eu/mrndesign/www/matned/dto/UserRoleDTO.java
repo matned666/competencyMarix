@@ -1,40 +1,39 @@
 package eu.mrndesign.www.matned.dto;
 
 import eu.mrndesign.www.matned.dto.audit.AuditDTO;
-import eu.mrndesign.www.matned.model.address.City;
 import eu.mrndesign.www.matned.model.audit.AuditInterface;
+import eu.mrndesign.www.matned.model.security.UserRole;
 
 import java.util.Objects;
 
-public class CityDTO {
+public class UserRoleDTO {
 
-    public static CityDTO applyWithAudit(City entity){
-        CityDTO dto = apply(entity);
+    public static UserRoleDTO applyWithAudit(UserRole entity){
+        UserRoleDTO dto = apply(entity);
         dto.auditDTO = AuditInterface.apply(entity);
         return dto;
     }
 
-    public static CityDTO apply(City entity){
-        return new CityDTO(entity.getCityName());
+    public static UserRoleDTO apply(UserRole entity){
+        return new UserRoleDTO(entity.getRoleName());
     }
 
-    private String cityName;
-
+    private String roleName;
     private AuditDTO auditDTO;
 
-    public CityDTO() {
+    public UserRoleDTO() {
     }
 
-    public CityDTO(String cityName) {
-        this.cityName = cityName;
+    public UserRoleDTO(String roleName) {
+        this.roleName = roleName;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public AuditDTO getAuditDTO() {
@@ -49,19 +48,19 @@ public class CityDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CityDTO cityDTO = (CityDTO) o;
-        return Objects.equals(cityName, cityDTO.cityName);
+        UserRoleDTO that = (UserRoleDTO) o;
+        return roleName.equals(that.roleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cityName);
+        return Objects.hash(roleName);
     }
 
     @Override
     public String toString() {
-        return "CityDTO{" +
-                "cityName='" + cityName + '\'' +
+        return "UserRoleDTO{" +
+                "roleName='" + roleName + '\'' +
                 ", auditDTO=" + auditDTO +
                 '}';
     }

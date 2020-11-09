@@ -1,5 +1,6 @@
 package eu.mrndesign.www.matned.dto;
 
+import eu.mrndesign.www.matned.dto.audit.AuditDTO;
 import eu.mrndesign.www.matned.dto.validation.UniqueEmail;
 import eu.mrndesign.www.matned.model.audit.AuditInterface;
 import eu.mrndesign.www.matned.model.security.User;
@@ -10,11 +11,11 @@ import javax.validation.constraints.Size;
 
 public class UserDTO {
 
-    public static UserDTO applyWithOutAudit(User entity) {
+    public static UserDTO apply(User entity) {
         return new UserDTO(entity.getLogin());
     }
 
-    public static UserDTO apply(User entity){
+    public static UserDTO applyWithAudit(User entity){
         return new UserDTO(entity.getLogin(), AuditInterface.apply(entity));
     }
 

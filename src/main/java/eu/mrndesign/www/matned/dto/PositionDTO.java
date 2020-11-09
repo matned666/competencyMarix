@@ -1,5 +1,6 @@
 package eu.mrndesign.www.matned.dto;
 
+import eu.mrndesign.www.matned.dto.audit.AuditDTO;
 import eu.mrndesign.www.matned.model.audit.AuditInterface;
 import eu.mrndesign.www.matned.model.company.Position;
 

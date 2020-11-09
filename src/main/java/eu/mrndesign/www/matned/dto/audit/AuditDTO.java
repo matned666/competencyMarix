@@ -1,6 +1,7 @@
-package eu.mrndesign.www.matned.dto;
+package eu.mrndesign.www.matned.dto.audit;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class AuditDTO implements Serializable {
 
@@ -71,6 +72,23 @@ public class AuditDTO implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuditDTO auditDTO = (AuditDTO) o;
+        return id.equals(auditDTO.id) &&
+                Objects.equals(version, auditDTO.version) &&
+                Objects.equals(createdById, auditDTO.createdById) &&
+                Objects.equals(createdDate, auditDTO.createdDate) &&
+                Objects.equals(lastModifiedById, auditDTO.lastModifiedById) &&
+                Objects.equals(lastModifiedDate, auditDTO.lastModifiedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, version, createdById, createdDate, lastModifiedById, lastModifiedDate);
+    }
 
     @Override
     public String toString() {

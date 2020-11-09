@@ -1,6 +1,6 @@
 package eu.mrndesign.www.matned.service;
 
-import eu.mrndesign.www.matned.dto.AuditDTO;
+import eu.mrndesign.www.matned.dto.audit.AuditDTO;
 import eu.mrndesign.www.matned.dto.PersonDTO;
 import eu.mrndesign.www.matned.dto.UserDTO;
 import eu.mrndesign.www.matned.dto.UserRegistrationDTO;

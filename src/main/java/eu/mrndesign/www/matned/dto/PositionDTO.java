@@ -6,7 +6,6 @@ import eu.mrndesign.www.matned.model.company.Position;
 import eu.mrndesign.www.matned.model.company.PositionDetails;
 
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 
 import static eu.mrndesign.www.matned.Patterns.DATE_FORMATTER;
 

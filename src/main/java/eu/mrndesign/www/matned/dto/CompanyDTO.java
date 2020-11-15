@@ -27,7 +27,6 @@ public class CompanyDTO {
         return new CompanyDTO.CompanyDTOBuilder(name)
                 .description(description)
                 .companyCreationDate(companyCreationDate)
-                .isActive(details.isActive())
                 .VAT_no(details.getVAT_no())
                 .build();
     }
@@ -51,7 +50,6 @@ public class CompanyDTO {
     private String description;
     private String VAT_no;
     private String companyCreationDate;
-    private boolean isActive;
 
     private AuditDTO auditDTO;
     private AuditDTO detailsAuditDTO;
@@ -64,7 +62,6 @@ public class CompanyDTO {
         this.description = builder.description;
         this.VAT_no = builder.VAT_no;
         this.companyCreationDate = builder.companyCreationDate;
-        this.isActive = builder.isActive;
     }
 
     public String getName() {
@@ -83,9 +80,6 @@ public class CompanyDTO {
         return companyCreationDate;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
 
     public AuditDTO getAuditDTO() {
         return auditDTO;
@@ -95,22 +89,8 @@ public class CompanyDTO {
         return detailsAuditDTO;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CompanyDTO that = (CompanyDTO) o;
-        return isActive == that.isActive &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(VAT_no, that.VAT_no) &&
-                Objects.equals(companyCreationDate, that.companyCreationDate);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, description, VAT_no, companyCreationDate, isActive);
-    }
+
 
     @Override
     public String toString() {
@@ -119,7 +99,6 @@ public class CompanyDTO {
                 ", description='" + description + '\'' +
                 ", VAT_no='" + VAT_no + '\'' +
                 ", companyCreationDate='" + companyCreationDate + '\'' +
-                ", isActive=" + isActive +
                 ", auditDTO=" + auditDTO +
                 '}';
     }
@@ -130,7 +109,6 @@ public class CompanyDTO {
         String description;
         String VAT_no;
         String companyCreationDate;
-        boolean isActive;
 
         public CompanyDTOBuilder(String name) {
             this.name = name;
@@ -148,11 +126,6 @@ public class CompanyDTO {
 
         public CompanyDTOBuilder companyCreationDate(String companyCreationDate){
             this.companyCreationDate = companyCreationDate;
-            return this;
-        }
-
-        public CompanyDTOBuilder isActive(boolean isActive){
-            this.isActive = isActive;
             return this;
         }
 

@@ -97,4 +97,11 @@ public class BaseService<E> {
         return true;
     }
 
+    protected boolean isChanged(String str) {
+        if (str != null)
+            return !str.trim().isEmpty() && !str.trim().isBlank();
+        else return false;
+    }
+
+
 }

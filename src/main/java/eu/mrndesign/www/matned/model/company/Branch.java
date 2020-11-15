@@ -19,11 +19,19 @@ public class Branch extends BaseEntity implements AuditInterface {
     private LocalDate branchCreationDate;
 
     @ManyToOne
+    private Company company;
+    @ManyToOne
     private Address address;
     @ManyToMany
     private List<Department> departments;
 
     public Branch() {
+    }
+
+    public Branch(EntityDescription entityDescription, Address address) {
+        this.entityDescription = entityDescription;
+        this.address = address;
+        this.departments = departments;
     }
 
     public Branch(EntityDescription entityDescription, Address address, List<Department> departments) {
@@ -58,6 +66,18 @@ public class Branch extends BaseEntity implements AuditInterface {
 
     public void setDepartments(List<Department> departments) {
         this.departments = departments;
+    }
+
+    public void setBranchCreationDate(LocalDate branchCreationDate) {
+        this.branchCreationDate = branchCreationDate;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override

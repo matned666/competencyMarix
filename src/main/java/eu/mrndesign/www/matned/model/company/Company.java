@@ -17,16 +17,18 @@ public class Company extends BaseEntity implements AuditInterface {
     private EntityDescription entityDescription;
     @OneToOne
     private CompanyDetails companyDetails;
-    @OneToMany(mappedBy = "id")
-    private List<Branch> branches;
+
 
     public Company() {
+    }
+
+    public Company(EntityDescription entityDescription) {
+        this.entityDescription = entityDescription;
     }
 
     public Company(EntityDescription entityDescription, CompanyDetails companyDetails, List<Branch> branches) {
         this.entityDescription = entityDescription;
         this.companyDetails = companyDetails;
-        this.branches = branches;
     }
 
     public EntityDescription getEntityDescription() {
@@ -45,20 +47,12 @@ public class Company extends BaseEntity implements AuditInterface {
         this.companyDetails = companyDetails;
     }
 
-    public List<Branch> getBranches() {
-        return branches;
-    }
-
-    public void setBranches(List<Branch> branches) {
-        this.branches = branches;
-    }
 
     @Override
     public String toString() {
         return "Company{" +
                 "entityDescription=" + entityDescription +
                 ", companyDetails=" + companyDetails +
-                ", branches=" + branches +
                 '}';
     }
 }

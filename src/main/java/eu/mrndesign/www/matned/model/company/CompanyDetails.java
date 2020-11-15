@@ -15,9 +15,16 @@ public class CompanyDetails extends BaseEntity implements AuditInterface {
 
     private String VAT_no;
     private LocalDate companyCreationDate;
-    private boolean isActive;
     @ManyToOne
     private Branch motherBranch;
+
+    public CompanyDetails() {
+    }
+
+    public CompanyDetails(String VAT_no, LocalDate companyCreationDate) {
+        this.VAT_no = VAT_no;
+        this.companyCreationDate = companyCreationDate;
+    }
 
     public String getVAT_no() {
         return VAT_no;
@@ -35,19 +42,20 @@ public class CompanyDetails extends BaseEntity implements AuditInterface {
         this.companyCreationDate = companyCreationDate;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
     public Branch getMotherBranch() {
         return motherBranch;
     }
 
     public void setMotherBranch(Branch motherBranch) {
         this.motherBranch = motherBranch;
+    }
+
+    @Override
+    public String toString() {
+        return "CompanyDetails{" +
+                "VAT_no='" + VAT_no + '\'' +
+                ", companyCreationDate=" + companyCreationDate +
+                ", motherBranch=" + motherBranch +
+                '}';
     }
 }

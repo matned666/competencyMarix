@@ -26,7 +26,7 @@ public class Company extends BaseEntity implements AuditInterface {
         this.entityDescription = entityDescription;
     }
 
-    public Company(EntityDescription entityDescription, CompanyDetails companyDetails, List<Branch> branches) {
+    public Company(EntityDescription entityDescription, CompanyDetails companyDetails) {
         this.entityDescription = entityDescription;
         this.companyDetails = companyDetails;
     }

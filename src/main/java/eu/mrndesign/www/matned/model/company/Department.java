@@ -28,7 +28,6 @@ public class Department  extends BaseEntity implements EntityDescriptionImplemen
     }
 
 
-
     @Override
     public EntityDescription getEntityDescription() {
         return entityDescription;

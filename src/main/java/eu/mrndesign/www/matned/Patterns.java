@@ -12,17 +12,19 @@ public class Patterns {
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
     public static boolean isCorrectDate(String date, DateTimeFormatter formatter){
-        try{
-            LocalDateTime.parse(date,formatter);
-            return true;
-        }catch (DateTimeParseException e1){
-            try{
-                LocalDate.parse(date, formatter);
+        if (date != null) {
+            try {
+                LocalDateTime.parse(date, formatter);
                 return true;
-            }catch (DateTimeParseException e2) {
-                return false;
+            } catch (DateTimeParseException e1) {
+                try {
+                    LocalDate.parse(date, formatter);
+                    return true;
+                } catch (DateTimeParseException e2) {
+                    return false;
+                }
             }
-        }
+        } return false;
     }
 
 }

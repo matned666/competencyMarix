@@ -89,8 +89,23 @@ public class CompanyDTO {
         return detailsAuditDTO;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CompanyDTO dto = (CompanyDTO) o;
+        return Objects.equals(name, dto.name) &&
+                Objects.equals(description, dto.description) &&
+                Objects.equals(VAT_no, dto.VAT_no) &&
+                Objects.equals(companyCreationDate, dto.companyCreationDate) &&
+                Objects.equals(auditDTO, dto.auditDTO) &&
+                Objects.equals(detailsAuditDTO, dto.detailsAuditDTO);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, VAT_no, companyCreationDate, auditDTO, detailsAuditDTO);
+    }
 
     @Override
     public String toString() {

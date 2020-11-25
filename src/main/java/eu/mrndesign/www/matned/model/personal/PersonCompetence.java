@@ -13,9 +13,6 @@ public class PersonCompetence  extends BaseEntity implements AuditInterface {
 
     private Integer level;
 
-    @ManyToMany
-    private List<Document> documents;
-
     @ManyToOne
     private Person person;
     @ManyToOne
@@ -32,13 +29,6 @@ public class PersonCompetence  extends BaseEntity implements AuditInterface {
         this.level = level;
     }
 
-    public List<Document> getDocuments() {
-        return documents;
-    }
-
-    public void setDocuments(List<Document> documents) {
-        this.documents = documents;
-    }
 
     public Person getPerson() {
         return person;
@@ -60,7 +50,6 @@ public class PersonCompetence  extends BaseEntity implements AuditInterface {
     public String toString() {
         return "PersonCompetence{" +
                 "level=" + level +
-                ", documents=" + documents +
                 ", person=" + person +
                 ", competence=" + competence +
                 '}';

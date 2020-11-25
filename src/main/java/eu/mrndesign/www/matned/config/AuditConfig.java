@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories(basePackages = {"eu.mrndesign.www.matned"})
 @EnableTransactionManagement
-@EnableJpaAuditing
+//@EnableJpaAuditing
 public class AuditConfig {
 
     private final UserService userService;

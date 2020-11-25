@@ -1,6 +1,5 @@
 package eu.mrndesign.www.matned.service;
 
-import eu.mrndesign.www.matned.dto.AddressDTO;
 import eu.mrndesign.www.matned.dto.DTOEintityDescriptionImplementation;
 import eu.mrndesign.www.matned.model.common.EntityDescriptionImplementation;
 import eu.mrndesign.www.matned.model.common.EntityDescription;

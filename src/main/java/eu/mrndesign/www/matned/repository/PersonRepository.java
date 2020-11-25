@@ -32,7 +32,5 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query("select p from Person  p where lower(p.lastName) like lower(concat('%', concat(:name, '%')))")
     Page<Person> findByLastNameNotPrecise(@Param("name") String name, Pageable pageable);
 
-    @Query("select p from Person p where p.address.id = :address_id")
-    Page<Person> findByAddressId(@Param("address_id") Long addressId, Pageable pageable);
 }
 

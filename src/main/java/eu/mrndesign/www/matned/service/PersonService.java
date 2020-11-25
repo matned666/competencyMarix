@@ -2,8 +2,6 @@ package eu.mrndesign.www.matned.service;
 
 import eu.mrndesign.www.matned.dto.PersonDTO;
 import eu.mrndesign.www.matned.model.personal.Person;
-import eu.mrndesign.www.matned.model.address.Address;
-import eu.mrndesign.www.matned.repository.AddressRepository;
 import eu.mrndesign.www.matned.repository.PersonRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,13 +23,10 @@ public class PersonService extends BaseService{
                 .collect(Collectors.toList());
     }
 
-    private final AddressRepository addressRepository;
 
     private final PersonRepository personRepository;
 
-    public PersonService(AddressRepository addressRepository,
-                         PersonRepository personRepository) {
-        this.addressRepository = addressRepository;
+    public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
@@ -55,15 +50,6 @@ public class PersonService extends BaseService{
 
     public PersonDTO add(PersonDTO dto){
         return PersonDTO.apply(personRepository.save(new Person(dto.getFirstName(), dto.getLastName())));
-    }
-
-    public PersonDTO updateAddress(Long personId, Long addressId){
-        Person person = personRepository.findById(personId)
-                .orElseThrow(()->new RuntimeException(PERSON_NOT_FOUND));
-        Address address = addressRepository.findById(addressId)
-                .orElseThrow(()->new RuntimeException(ADDRESS_NOT_FOUND));
-        person.setAddress(address);
-        return PersonDTO.apply(personRepository.save(person));
     }
 
     public PersonDTO update(Long id, PersonDTO dto){
@@ -99,10 +85,6 @@ public class PersonService extends BaseService{
         return convertEntityListToDTOList(personRepository.findByLastNameNotPrecise(lastName, pageable).getContent());
     }
 
-    public List<PersonDTO> findByAddress(Long addressId, Integer startPage, Integer itemsPerPage, String[] sortBy){
-        Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
-        return convertEntityListToDTOList(personRepository.findByAddressId(addressId, pageable).getContent());
-    }
 
 //    Package private
 

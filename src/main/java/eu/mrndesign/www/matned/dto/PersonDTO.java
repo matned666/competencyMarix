@@ -6,6 +6,8 @@ import eu.mrndesign.www.matned.model.personal.Person;
 
 import javax.validation.constraints.NotEmpty;
 
+import java.util.Objects;
+
 import static eu.mrndesign.www.matned.Patterns.DATE_FORMATTER;
 
 public class PersonDTO {
@@ -17,23 +19,13 @@ public class PersonDTO {
     }
 
     public static PersonDTO apply(Person entity) {
-        PersonDTO dto = new PersonDTO(entity.getFirstName(), entity.getLastName(), AuditInterface.apply(entity));
-        if (entity.getBirthDate() != null) dto.dateOfBirth = entity.getBirthDate().format(DATE_FORMATTER);
-        if (entity.getGender() != null)  dto.gender = entity.getGender().name();
-        dto.middleName = entity.getMiddleName();
-        dto.maidenName = entity.getMaidenName();
-        return dto;
+        return new PersonDTO(entity.getFirstName(), entity.getLastName(), AuditInterface.apply(entity));
     }
 
     @NotEmpty(message = "This field cannot be empty")
     private String firstName;
     @NotEmpty(message = "This field cannot be empty")
     private String lastName;
-
-    private String middleName;
-    private String maidenName;
-    private String gender;
-    private String dateOfBirth;
 
     private AuditDTO auditDTO;
 
@@ -75,20 +67,19 @@ public class PersonDTO {
         this.auditDTO = auditDTO;
     }
 
-    public String getMiddleName() {
-        return middleName;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonDTO personDTO = (PersonDTO) o;
+        return Objects.equals(firstName, personDTO.firstName) &&
+                Objects.equals(lastName, personDTO.lastName) &&
+                Objects.equals(auditDTO, personDTO.auditDTO);
     }
 
-    public String getMaidenName() {
-        return maidenName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, auditDTO);
     }
 
     @Override

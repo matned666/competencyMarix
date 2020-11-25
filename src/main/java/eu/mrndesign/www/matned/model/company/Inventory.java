@@ -18,8 +18,6 @@ public class Inventory extends BaseEntity implements AuditInterface, EntityDescr
     @Embedded
     private EntityDescription entityDescription;
     private BigDecimal price;
-    @ManyToOne
-    private Branch branch;
     @ManyToMany
     private List<Competence> requiredCompetences;
 

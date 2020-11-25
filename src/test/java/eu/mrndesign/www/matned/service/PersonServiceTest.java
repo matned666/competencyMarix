@@ -3,8 +3,6 @@ package eu.mrndesign.www.matned.service;
 import eu.mrndesign.www.matned.dto.PersonDTO;
 import eu.mrndesign.www.matned.model.personal.Person;
 import eu.mrndesign.www.matned.model.security.User;
-import eu.mrndesign.www.matned.model.address.Address;
-import eu.mrndesign.www.matned.repository.AddressRepository;
 import eu.mrndesign.www.matned.repository.PersonRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,9 +33,6 @@ class PersonServiceTest {
 
     @MockBean
     private PersonRepository personRepository;
-
-    @MockBean
-    private AddressRepository addressRepository;
 
     private List<Person> people;
 
@@ -93,21 +88,6 @@ class PersonServiceTest {
 
         assertEquals(people.get(1).getFirstName(), "Charles");
         assertEquals(people.get(1).getLastName(), "A.TestSurname1");
-    }
-
-    @Test
-    void updatingPersonAddress(){
-        doReturn(Optional.of(people.get(0))).when(personRepository).findById(any());
-        doReturn(people.get(0)).when(personRepository).save(any());
-        Address address = new Address();
-        assertNotNull(address);
-        assertNull(people.get(0).getAddress());
-        doReturn(Optional.of(address)).when(addressRepository).findById(any());
-
-        personService.updateAddress(0L, 0L);
-
-        assertNotNull(people.get(0).getAddress());
-
     }
 
     @Test

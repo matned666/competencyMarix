@@ -77,7 +77,7 @@ public class BaseService<E> {
         return pageable;
     }
 
-    protected List<E> getAddressDTOsSortedByStreetRelevance(String searchedValue, List<E> list, String type) {
+    protected List<E> getDTOsSortedByRelevance(String searchedValue, List<E> list, String type) {
         List<E> sortedListBySearchRelevance = new LinkedList<>();
         sortedListBySearchRelevance.addAll(
                 list.stream()

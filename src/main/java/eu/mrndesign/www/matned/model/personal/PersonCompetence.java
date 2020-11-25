@@ -21,6 +21,12 @@ public class PersonCompetence  extends BaseEntity implements AuditInterface {
     public PersonCompetence() {
     }
 
+    public PersonCompetence(Integer level, Person person, Competence competence) {
+        this.level = level;
+        this.person = person;
+        this.competence = competence;
+    }
+
     public Integer getLevel() {
         return level;
     }

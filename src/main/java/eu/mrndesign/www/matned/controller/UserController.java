@@ -4,7 +4,6 @@ import eu.mrndesign.www.matned.dto.PersonDTO;
 import eu.mrndesign.www.matned.dto.UserDTO;
 import eu.mrndesign.www.matned.dto.UserRegistrationDTO;
 import eu.mrndesign.www.matned.service.UserService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +19,10 @@ public class UserController {
 
     @GetMapping("/users")
     @ResponseBody
-    public List<UserDTO> findAllUsers() {
-        return userService.findAll();
+    public List<UserDTO> findAllUsers(@RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
+                                      @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
+                                      @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount) {
+        return userService.findAll(page, amount, sort);
     }
 
     @GetMapping("/users/{id}")
@@ -32,8 +33,11 @@ public class UserController {
 
     @DeleteMapping("/users/{id}")
     @ResponseBody
-    public List<UserDTO> deleteUser(@PathVariable Long id) {
-        return userService.deleteUser(id);
+    public List<UserDTO> deleteUser(@PathVariable Long id,
+                                    @RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
+                                    @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
+                                    @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount) {
+        return userService.deleteUser(id, page, amount, sort);
     }
 
     @PostMapping("/users")

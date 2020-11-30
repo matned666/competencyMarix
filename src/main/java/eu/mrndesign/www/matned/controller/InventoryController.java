@@ -16,8 +16,10 @@ public class InventoryController {
     }
 
     @GetMapping("/inventory")
-    @ResponseBody public List<InventoryDTO> allInventory(){
-        return inventoryService.findAll();
+    @ResponseBody public List<InventoryDTO> allInventory(@RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
+                                                         @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
+                                                         @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount){
+        return inventoryService.findAll(page,amount,sort);
     }
 
     @PostMapping("/inventory")
@@ -31,9 +33,12 @@ public class InventoryController {
     }
 
     @DeleteMapping("/inventory/{id}")
-    @ResponseBody public List<InventoryDTO> deleteItem(@PathVariable Long id){
+    @ResponseBody public List<InventoryDTO> deleteItem(@PathVariable Long id,
+                                                       @RequestParam(defaultValue = "${default.sort.by}", name = "sort") String[] sort,
+                                                       @RequestParam(defaultValue = "${default.page.start}", name = "page") Integer page,
+                                                       @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount){
         inventoryService.delete(id);
-        return inventoryService.findAll();
+        return inventoryService.findAll(page,amount,sort);
     }
 
     @PostMapping("/inventory/{id}")

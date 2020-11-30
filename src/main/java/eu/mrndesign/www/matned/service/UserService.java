@@ -110,9 +110,9 @@ public class UserService extends BaseService{
         return UserDTO.applyWithAudit(user);
     }
 
-    public List<UserDTO> deleteUser(Long id) {
+    public List<UserDTO> deleteUser(Long id, Integer startPage, Integer itemsPerPage, String[] sortBy) {
         userRepository.deleteById(id);
-        return findAll(defaultStartPage, defaultPageSize, new String[]{defaultSortBy});
+        return findAll(startPage, itemsPerPage, sortBy);
     }
 
     public PersonDTO getUserPersonalData(Long id) {

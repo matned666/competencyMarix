@@ -58,7 +58,7 @@ class UserControllerTest {
     @WithMockUser(roles = "MANAGER")
     void getAllUsersList() throws Exception {
 
-        Mockito.doReturn(allUsers).when(userService).findAll();
+        Mockito.doReturn(allUsers).when(userService).findAll(any(), any(), any() );
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/users")
@@ -92,7 +92,7 @@ class UserControllerTest {
     @DisplayName("DELETE /users/0 test - user with id deleted status 200")
     @WithMockUser(roles = {"MANAGER", "PUBLISHER", "USER"})
     void deleteSingleUser() throws Exception {
-        Mockito.doReturn(allUsers).when(userService).deleteUser(any());
+        Mockito.doReturn(allUsers).when(userService).deleteUser(any(), any(), any(), any());
 
         mockMvc.perform(
                 MockMvcRequestBuilders.delete("/users/0")

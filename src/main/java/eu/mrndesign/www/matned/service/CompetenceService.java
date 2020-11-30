@@ -2,7 +2,6 @@ package eu.mrndesign.www.matned.service;
 
 import eu.mrndesign.www.matned.dto.CompetenceDTO;
 import eu.mrndesign.www.matned.dto.PersonCompetenceDTO;
-import eu.mrndesign.www.matned.dto.PersonDTO;
 import eu.mrndesign.www.matned.model.common.EntityDescription;
 import eu.mrndesign.www.matned.model.personal.Competence;
 import eu.mrndesign.www.matned.model.personal.Person;
@@ -17,9 +16,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CompetenceService extends BaseService<Competence>{
+public class CompetenceService extends BaseService<Competence> {
 
     public static final String COMPETENCE_NOT_FOUND = "Competence not found";
+    public static final String PERSON_COMPETENCE_NOT_FOUND = "Person competence not found";
+    public static final Integer PERSON_COMPETENCE_MAX_LEVEL = 3;
+    public static final Integer PERSON_COMPETENCE_MIN_LEVEL = 0;
     private final CompetenceRepository competenceRepository;
     private final PersonCompetenceRepository personCompetenceRepository;
     private final PersonService personService;
@@ -39,8 +41,8 @@ public class CompetenceService extends BaseService<Competence>{
 
     public CompetenceDTO updateCompetence(Long id, CompetenceDTO dto) {
         Competence entity = getEntity(id);
-        if(isChanged(dto.getName())) entity.getEntityDescription().setName(dto.getName());
-        if(isChanged(dto.getDescription())) entity.getEntityDescription().setDescription(dto.getDescription());
+        if (isChanged(dto.getName())) entity.getEntityDescription().setName(dto.getName());
+        if (isChanged(dto.getDescription())) entity.getEntityDescription().setDescription(dto.getDescription());
         return CompetenceDTO.apply(competenceRepository.save(entity));
     }
 
@@ -74,4 +76,29 @@ public class CompetenceService extends BaseService<Competence>{
                 .map(CompetenceDTO::apply)
                 .collect(Collectors.toList());
     }
+
+    public void deletePersonCompetence(Long personCompetenceId) {
+        personCompetenceRepository.deleteById(personCompetenceId);
+    }
+
+    public PersonCompetenceDTO upgradePersonCompetence(Long personCompetenceId) {
+        PersonCompetence personCompetence = personCompetenceRepository.findById(personCompetenceId)
+                .orElseThrow(() -> new RuntimeException(PERSON_COMPETENCE_NOT_FOUND));
+
+        if (personCompetence.getLevel() < PERSON_COMPETENCE_MAX_LEVEL)
+            personCompetence.setLevel(personCompetence.getLevel() + 1);
+
+
+        return PersonCompetenceDTO.apply(personCompetenceRepository.save(personCompetence));
+    }
+
+    public PersonCompetenceDTO downgradePersonCompetence(Long personCompetenceId) {
+        PersonCompetence personCompetence = personCompetenceRepository.findById(personCompetenceId)
+                .orElseThrow(() -> new RuntimeException(PERSON_COMPETENCE_NOT_FOUND));
+
+        if (personCompetence.getLevel() > PERSON_COMPETENCE_MIN_LEVEL)
+            personCompetence.setLevel(personCompetence.getLevel() - 1);
+
+
+        return PersonCompetenceDTO.apply(personCompetenceRepository.save(personCompetence));    }
 }

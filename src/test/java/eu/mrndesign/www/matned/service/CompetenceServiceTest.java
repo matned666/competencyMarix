@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static eu.mrndesign.www.matned.service.CompetenceService.PERSON_COMPETENCE_MAX_LEVEL;
+import static eu.mrndesign.www.matned.service.CompetenceService.PERSON_COMPETENCE_MIN_LEVEL;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -110,38 +112,50 @@ class CompetenceServiceTest {
     }
 
     @Test
-    void successfulUpdatePersonComptence(){
-
-    }
-
-    @Test
-    void updatePersonCompetenceButNothingChangedDueToTheSameCompetenceAdded(){
-
-    }
-
-    @Test
     void deletePersonCompetence(){
+        doNothing().when(personCompetenceRepository).delete(any());
 
+        assertDoesNotThrow(() -> competenceService.deletePersonCompetence(1L));
     }
 
     @Test
     void upgradePersonCompetence(){
+        PersonCompetence personCompetence = new PersonCompetence(0, null, null);
 
+        doReturn(Optional.of(personCompetence)).when(personCompetenceRepository).findById(any());
+        doReturn(personCompetence).when(personCompetenceRepository).save(any());
+
+        assertEquals(competenceService.upgradePersonCompetence(1L).getLevel() , 1);
     }
 
     @Test
     void downgradePersonCompetence(){
+        PersonCompetence personCompetence = new PersonCompetence(1, null, null);
 
+        doReturn(Optional.of(personCompetence)).when(personCompetenceRepository).findById(any());
+        doReturn(personCompetence).when(personCompetenceRepository).save(any());
+
+        assertEquals(competenceService.downgradePersonCompetence(1L).getLevel() , 0);
     }
 
     @Test
     void failedPersonCompetenceUpgradeDueToMaxAlreadyReached(){
+        PersonCompetence personCompetence = new PersonCompetence(PERSON_COMPETENCE_MAX_LEVEL, null, null);
 
+        doReturn(Optional.of(personCompetence)).when(personCompetenceRepository).findById(any());
+        doReturn(personCompetence).when(personCompetenceRepository).save(any());
+
+        assertEquals(competenceService.upgradePersonCompetence(1L).getLevel() , PERSON_COMPETENCE_MAX_LEVEL);
     }
 
     @Test
     void failedPersonCompetenceDowngradeDueToZeroAlreadyReached(){
+        PersonCompetence personCompetence = new PersonCompetence(PERSON_COMPETENCE_MIN_LEVEL, null, null);
 
+        doReturn(Optional.of(personCompetence)).when(personCompetenceRepository).findById(any());
+        doReturn(personCompetence).when(personCompetenceRepository).save(any());
+
+        assertEquals(competenceService.downgradePersonCompetence(1L).getLevel() , PERSON_COMPETENCE_MIN_LEVEL);
     }
 
 

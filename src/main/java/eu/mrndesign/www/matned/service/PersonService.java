@@ -1,5 +1,6 @@
 package eu.mrndesign.www.matned.service;
 
+import eu.mrndesign.www.matned.dto.PersonCompetenceDTO;
 import eu.mrndesign.www.matned.dto.PersonDTO;
 import eu.mrndesign.www.matned.model.personal.Person;
 import eu.mrndesign.www.matned.repository.PersonRepository;
@@ -97,5 +98,4 @@ public class PersonService extends BaseService{
                 .map(PersonDTO::apply)
                 .collect(Collectors.toList());
     }
-
 }

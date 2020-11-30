@@ -84,21 +84,32 @@ public class CompetenceService extends BaseService<Competence> {
     public PersonCompetenceDTO upgradePersonCompetence(Long personCompetenceId) {
         PersonCompetence personCompetence = personCompetenceRepository.findById(personCompetenceId)
                 .orElseThrow(() -> new RuntimeException(PERSON_COMPETENCE_NOT_FOUND));
-
         if (personCompetence.getLevel() < PERSON_COMPETENCE_MAX_LEVEL)
             personCompetence.setLevel(personCompetence.getLevel() + 1);
-
-
         return PersonCompetenceDTO.apply(personCompetenceRepository.save(personCompetence));
     }
 
     public PersonCompetenceDTO downgradePersonCompetence(Long personCompetenceId) {
         PersonCompetence personCompetence = personCompetenceRepository.findById(personCompetenceId)
                 .orElseThrow(() -> new RuntimeException(PERSON_COMPETENCE_NOT_FOUND));
-
         if (personCompetence.getLevel() > PERSON_COMPETENCE_MIN_LEVEL)
             personCompetence.setLevel(personCompetence.getLevel() - 1);
+        return PersonCompetenceDTO.apply(personCompetenceRepository.save(personCompetence));
+    }
+
+    public List<PersonCompetenceDTO> findAllPersonCompetences(Long personId, Integer startPage, Integer itemsPerPage, String[] sortBy) {
+        Pageable pageable = getPageable(startPage, itemsPerPage, sortBy);
+        Page<PersonCompetence> competences = personCompetenceRepository.findAll(pageable);
+        List<PersonCompetence> _competences = competences.getContent();
+        return _competences.stream()
+                .map(PersonCompetenceDTO::apply)
+                .collect(Collectors.toList());
+    }
+
+    public PersonCompetenceDTO findPersonCompetenceById(Long personCompetenceId) {
+        return PersonCompetenceDTO.apply(personCompetenceRepository.findById(personCompetenceId)
+                .orElseThrow(() -> new RuntimeException(PERSON_COMPETENCE_NOT_FOUND)));
+    }
 
 
-        return PersonCompetenceDTO.apply(personCompetenceRepository.save(personCompetence));    }
 }

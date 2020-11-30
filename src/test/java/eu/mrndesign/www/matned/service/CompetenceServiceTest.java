@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
@@ -158,8 +159,31 @@ class CompetenceServiceTest {
         assertEquals(competenceService.downgradePersonCompetence(1L).getLevel() , PERSON_COMPETENCE_MIN_LEVEL);
     }
 
+    @Test
+    void findAllPersonCompetencesPaged(){
+        PersonCompetence personCompetence = new PersonCompetence(PERSON_COMPETENCE_MIN_LEVEL, null, null);
+        String[] sortBy = {"aa"};
+
+        doReturn(new PageImpl<>(Collections.singletonList(personCompetence))).when(personCompetenceRepository).findAll((Pageable) any());
+
+        Long personId = 1L;
+
+        assertEquals(Collections.singletonList(personCompetence).stream()
+                .map(PersonCompetenceDTO::apply)
+                .collect(Collectors.toList()), competenceService.findAllPersonCompetences(personId, 0,2, sortBy));
+
+    }
 
 
+    @Test
+    void findPersonCompetenceById(){
+        PersonCompetence personCompetence = new PersonCompetence(PERSON_COMPETENCE_MIN_LEVEL, null, null);
+
+        doReturn(Optional.of(personCompetence)).when(personCompetenceRepository).findById(any());
+
+        assertEquals(competenceService.findPersonCompetenceById(1L), PersonCompetenceDTO.apply(personCompetence));
+
+    }
 
 
 

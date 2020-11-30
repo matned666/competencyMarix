@@ -151,8 +151,8 @@ class CompetenceControllerTest {
 
     }
 
-@Test
-    @DisplayName("DELETE /competence/0 test - competence deleted and all competences shown 200 ")
+    @Test
+    @DisplayName("DELETE /competence/0 test - competence delete status forbidden ")
     @WithMockUser(roles = {"PUBLISHER", "USER"})
     void deleteCompetenceStatusForbidden() throws Exception {
     doNothing().when(competenceService).deleteCompetence(any());
@@ -163,6 +163,26 @@ class CompetenceControllerTest {
                 .andExpect(status().isForbidden())
                 .andReturn();
     }
+
+    @Test
+    @DisplayName("POST /competence test - competence result status 200")
+    @WithMockUser(roles = {"PUBLISHER", "USER"})
+    void updateCompetenceStatusOk() throws Exception {
+        doReturn(competences.get(0)).when(competenceService).updateCompetence(any(), any());
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/competence/0")
+                        .content(asJsonString(competences.get(0)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(content().json("{'name':'name1','description':'description1'}"))
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+
+
 
 
 }

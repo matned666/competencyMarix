@@ -28,6 +28,12 @@ public class CompetenceController {
         return competenceService.findCompetenceById(id);
     }
 
+    @PostMapping("/competence/{id}")
+    public CompetenceDTO updateCompetenceById(@PathVariable Long id,
+                                              @RequestBody CompetenceDTO competence){
+        return competenceService.updateCompetence(id, competence);
+    }
+
     @PostMapping("/competence")
     public CompetenceDTO addCompetence(@RequestBody CompetenceDTO competence){
         return competenceService.addCompetence(competence);

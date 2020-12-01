@@ -90,6 +90,18 @@ class CompetenceControllerTest {
     }
 
     @Test
+    @DisplayName("GET /competence test - 403 with role")
+    @WithMockUser(roles = "BANNED")
+    void getAllCompetencesListPageForbiddenForBannedUser() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/competence"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isForbidden())
+                .andReturn();
+
+    }
+
+    @Test
     @DisplayName("GET /competence/x test - competence found 200 with role")
     @WithMockUser(roles = "USER")
     void getCompetenceById() throws Exception {
@@ -180,9 +192,6 @@ class CompetenceControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
     }
-
-
-
 
 
 }

@@ -41,6 +41,8 @@ public class WebSecurityController extends WebSecurityConfigurerAdapter {
                 .hasAnyRole(UserRole.Role.ADMIN.name(), UserRole.Role.CEO.name())
                 .antMatchers(HttpMethod.POST, "/**")
                 .hasAnyRole(UserRole.Role.ADMIN.name(), UserRole.Role.CEO.name(), UserRole.Role.MANAGER.name(), UserRole.Role.PUBLISHER.name())
+                .antMatchers(HttpMethod.GET, "/person/**")
+                .hasAnyRole(UserRole.Role.ADMIN.name(), UserRole.Role.CEO.name(), UserRole.Role.MANAGER.name(), UserRole.Role.PUBLISHER.name())
                 .antMatchers(HttpMethod.GET, "/competence/**")
                 .hasAnyRole(UserRole.Role.ADMIN.name(), UserRole.Role.CEO.name(), UserRole.Role.MANAGER.name(), UserRole.Role.PUBLISHER.name(), UserRole.Role.USER.name())
                 .antMatchers("/**")

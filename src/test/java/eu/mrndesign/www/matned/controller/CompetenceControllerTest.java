@@ -121,7 +121,7 @@ class CompetenceControllerTest {
     @Test
     @DisplayName("POST /competence test - competence result status 200")
     @WithMockUser(roles = {"PUBLISHER", "USER"})
-    void addUserStatusOk() throws Exception {
+    void addCompetenceStatusOk() throws Exception {
         doReturn(competences.get(0)).when(competenceService).addCompetence(any());
 
         mockMvc.perform(
@@ -138,7 +138,7 @@ class CompetenceControllerTest {
     @Test
     @DisplayName("POST /competence test - competence result status FORBIDDEN")
     @WithMockUser(roles = "USER")
-    void addUserStatusForbidden() throws Exception {
+    void addCompetenceStatusForbidden() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/competence"))
                 .andDo(MockMvcResultHandlers.print())
